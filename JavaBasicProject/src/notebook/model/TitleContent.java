@@ -1,10 +1,7 @@
 package notebook.model;
 
-import java.util.Scanner;
-
-public class Post {
+public class TitleContent {
     private String title;
-    private String content;
 
     public String getTitle() {
         return title;
@@ -21,4 +18,6 @@ public class Post {
     public void setContent(String content) {
         this.content = content;
     }
+
+    private String content;
 }

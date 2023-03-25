@@ -1,11 +1,14 @@
-import notebook.menu.MainMenu;
+import notebook.MenuImpl;
+import notebook.interfaces.MenuInterface;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        MainMenu mainMenu = new MainMenu();
+        Scanner scanner = new Scanner(System.in);
 
-        mainMenu.menu();
+        MenuInterface mainMenu = new MenuImpl();
+
+        mainMenu.menu(scanner);
     }
 }
