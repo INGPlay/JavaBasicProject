@@ -2,6 +2,7 @@ package notebook.model;
 
 public class TitleContent {
     private String title;
+    private String content;
 
     public String getTitle() {
         return title;
@@ -18,6 +19,4 @@ public class TitleContent {
     public void setContent(String content) {
         this.content = content;
     }
-
-    private String content;
 }

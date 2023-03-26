@@ -1,10 +1,15 @@
 package notebook;
 
 import notebook.interfaces.MenuInterface;
+import notebook.model.TitleContent;
+import notebook.statics.Singleton;
+import notebook.util.Submit;
 
 import java.util.Scanner;
 
 public class Post implements MenuInterface {
+    private Scanner scanner = Singleton.getScanner();
+
     private String title;
     private String content;
 
@@ -31,8 +36,43 @@ public class Post implements MenuInterface {
     }
 
     @Override
-    public void menu(Scanner scanner) {
-        System.out.println("---------------N-O-T-E---------------");
+    public void menu() {
+        view();
+
+        String choiceMenu = scanner.nextLine();
+
+        switch (choiceMenu){
+            case "!" :      // 이 노트 수정
+                System.out.println();
+
+                System.out.println("제목을 적어주세요.");
+                String title = scanner.nextLine();
+
+                System.out.println("내용을 적어주세요.");
+                String content = scanner.nextLine();
+
+                TitleContent titleContent = Submit.submitTitleContent(title, content);
+
+                update(titleContent);
+
+                menu();
+                break;
+
+            case "-" :      // 노트 나가기
+                quit();
+                break;
+        }
+
+        System.out.println("잘못 입력하셨습니다.");
+        menu();
+    }
+
+    public void quit() {
+        before.menu();
+    }
+
+    private void view() {
+        System.out.println("**************N-O-T-E**************");
         System.out.println(title);
         System.out.println("-------------------------");
         System.out.println(content);
@@ -40,48 +80,27 @@ public class Post implements MenuInterface {
         System.out.println("-------------------------");
         System.out.println("!. 노트 수정 | -. 뒤로가기");
         System.out.println("-------------------------");
-
-        String choiceMenu = scanner.nextLine();
-
-        switch (choiceMenu){
-            case "!" :
-                update(scanner);
-                break;
-
-            case "@" :
-                break;
-
-            case "-" :
-                out(scanner);
-                break;
-        }
-
-        System.out.println("잘못 입력하셨습니다.");
-        menu(scanner);
     }
 
-    void update(Scanner scanner){
-        System.out.println();
+    public void create(TitleContent titleContent) {
 
-        System.out.println("제목을 적어주세요.");
-        String title = scanner.nextLine();
+    }
 
-        System.out.println("내용을 적어주세요.");
-        String content = scanner.nextLine();
+    public void update(TitleContent titleContent){
 
-        this.title = title;
-        this.content = content;
+        this.title = titleContent.getTitle();
+        this.content = titleContent.getContent();
 
         System.out.println("노트가 수정되었습니다.");
-
-        menu(scanner);
     }
 
-    void create(Scanner scanner){
+    public void delete(int index) {
 
     }
 
-    void out(Scanner scanner){
-        before.menu(scanner);
+
+
+    public void except(Object object) {
+
     }
 }

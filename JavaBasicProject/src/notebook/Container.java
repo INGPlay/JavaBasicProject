@@ -1,12 +1,17 @@
 package notebook;
 
 import notebook.interfaces.MenuInterface;
+import notebook.model.TitleContent;
+import notebook.statics.Singleton;
+import notebook.util.Submit;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Container implements MenuInterface {
+
+    private Scanner scanner = Singleton.getScanner();
 
     private String title;
 
@@ -27,35 +32,61 @@ public class Container implements MenuInterface {
     }
 
     @Override
-    public void menu(Scanner scanner) {
-        System.out.println("------------노트 목록----------");
-
-        for (int i = 0; i < posts.size(); i++){
-            Post post = posts.get(i);
-            System.out.printf("%d. %s\n", i, post.getTitle());
-        }
-
-        System.out.println("-------------------------");
-        System.out.println("!. 노트 생성 | @. 노트 삭제 | #. 저장소 이름 변경 | -. 뒤로가기");
-        System.out.println("-------------------------");
+    public void menu() {
+        view();
 
         String choiceMenu = scanner.nextLine();
 
         switch (choiceMenu){
-            case "!" :
-                create(scanner);
+            case "!" :      // 노트생성
+                System.out.println();
+
+                System.out.println("제목을 적어주세요.");
+                String title = scanner.nextLine();
+
+                System.out.println("내용을 적어주세요.");
+                String content = scanner.nextLine();
+
+                TitleContent titleContent = Submit.submitTitleContent(title, content);
+                create(titleContent);
+
+                menu();
                 break;
 
-            case "@" :
-                delete(scanner);
+            case "@" :      // 노트 삭제
+                String scan = scanner.nextLine();
+
+                if (scan.equals("-")){
+                    menu();
+
+                } else {
+                    int index = Integer.parseInt(scan);
+
+                    delete(index);
+
+                    menu();
+                }
+
+                menu();
                 break;
 
-            case "#" :
-                update(scanner);
+            case "#" :      // 이 컨테이너 이름 변경
+                System.out.println();
+
+                System.out.println("제목을 적어주세요.");
+
+
+                String title_ = scanner.nextLine();
+
+                TitleContent titleOnly = Submit.submitTitleOnly(title_);
+
+                update(titleOnly);
+
+                menu();
                 break;
 
-            case "-" :
-                out(scanner);
+            case "-" :      // 뒤로 가기(컨테이너 나가기)
+                quit();
                 break;
 
             default:
@@ -63,26 +94,38 @@ public class Container implements MenuInterface {
                     int choiceIndex = Integer.parseInt(choiceMenu);
                     MenuInterface post = posts.get(choiceIndex);
 
-                    post.menu(scanner);
+                    post.menu();
 
                 } catch (Exception e){
                     System.out.println("잘못 입력하셨습니다.");
-                    menu(scanner);
+                    menu();
                 }
 
                 break;
         }
-
     }
 
-    void create(Scanner scanner){
-        System.out.println();
+    public void quit(){
+        before.menu();
+    }
 
-        System.out.println("제목을 적어주세요.");
-        String title = scanner.nextLine();
+    private void view() {
+        System.out.println("************노트 목록*************");
 
-        System.out.println("내용을 적어주세요.");
-        String content = scanner.nextLine();
+        for (int i = 0; i < posts.size(); i++){
+            Post post = posts.get(i);
+            System.out.printf("%d. %s\n", i, post.getTitle());
+        }
+
+        System.out.println("-------------------------");
+        System.out.println("!. 노트 생성 | @. 노트 삭제 | #. 컨테이너 이름 변경 | -. 뒤로가기");
+        System.out.println("-------------------------");
+    }
+
+    public void create(TitleContent titleContent){
+
+        String title = titleContent.getTitle();
+        String content = titleContent.getContent();
 
         Post post = new Post(this);
         post.setTitle(title);
@@ -92,51 +135,17 @@ public class Container implements MenuInterface {
 
         System.out.println("노트가 생성되었습니다.");
 
-        menu(scanner);
     }
 
-    void update(Scanner scanner){
-        System.out.println();
-
-        System.out.println("제목을 적어주세요.");
-        String title = scanner.nextLine();
-
-        this.title = title;
+    public void update(TitleContent titleContent){
+        this.title = titleContent.getTitle();
 
         System.out.println("저장소 제목이 수정되었습니다.");
-
-        menu(scanner);
     }
 
-    void delete(Scanner scanner){
-        System.out.println();
-
-        System.out.println("번호를 적어주세요. | -. 뒤로가기");
-
-        try{
-            String scan = scanner.nextLine();
-
-            if (scan.equals("-")){
-                menu(scanner);
-
-            } else {
-                int index = Integer.parseInt(scan);
-
-                posts.remove(index);
-                System.out.println("노트가 삭제되었습니다");
-
-                menu(scanner);
-            }
-
-        } catch (Exception e){
-
-            System.out.println("잘못 적으셨습니다.");
-            delete(scanner);
-        }
-
+    public void delete(int index){
+        posts.remove(index);
+        System.out.println("노트가 삭제되었습니다");
     }
 
-    void out(Scanner scanner){
-        before.menu(scanner);
-    }
 }
