@@ -1,13 +1,13 @@
-package notebook;
+package notebook.oldMenus;
 
-import notebook.interfaces.MenuInterface;
-import notebook.model.TitleContent;
+import notebook.oldMenus.interfaces.MenuInterface;
+import notebook.oldMenus.model.TitleContent;
 import notebook.statics.Singleton;
-import notebook.util.Submit;
+import notebook.oldMenus.util.Submit;
 
 import java.util.Scanner;
 
-public class Post implements MenuInterface {
+public class PostMenu implements MenuInterface {
     private Scanner scanner = Singleton.getScanner();
 
     private String title;
@@ -31,7 +31,7 @@ public class Post implements MenuInterface {
 
     private MenuInterface before;
 
-    public Post(MenuInterface before) {
+    public PostMenu(MenuInterface before) {
         this.before = before;
     }
 

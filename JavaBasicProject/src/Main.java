@@ -1,10 +1,10 @@
-import notebook.MenuImpl;
-import notebook.interfaces.MenuInterface;
-
+import notebook.abstractMenus.MainMenu;
+import notebook.abstractMenus.extend.AbstractMenuV3_DecideMenu;
 public class Main {
     public static void main(String[] args) {
 
-        MenuInterface mainMenu = new MenuImpl();
+        AbstractMenuV3_DecideMenu mainMenu = new MainMenu();
+        mainMenu.setTitle("메인 메뉴");
 
         mainMenu.menu();
     }

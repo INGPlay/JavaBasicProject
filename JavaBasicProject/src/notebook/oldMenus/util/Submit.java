@@ -1,6 +1,6 @@
-package notebook.util;
+package notebook.oldMenus.util;
 
-import notebook.model.TitleContent;
+import notebook.oldMenus.model.TitleContent;
 
 public class Submit {
     public static TitleContent submitTitleContent(String title, String content){

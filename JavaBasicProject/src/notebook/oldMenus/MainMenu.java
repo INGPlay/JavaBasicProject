@@ -1,32 +1,36 @@
-package notebook;
+package notebook.oldMenus;
 
-import notebook.interfaces.MenuInterface;
-import notebook.model.TitleContent;
+import notebook.oldMenus.interfaces.MenuInterface;
+import notebook.oldMenus.model.TitleContent;
 import notebook.statics.Singleton;
-import notebook.util.Submit;
+import notebook.oldMenus.util.Submit;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MenuImpl implements MenuInterface {
-    private List<Container> containers = new ArrayList<>();
+public class MainMenu implements MenuInterface {
+    private List<ContainerMenu> containerMenus = new ArrayList<>();
     private Scanner scanner = Singleton.getScanner();
 
     @Override
     public void menu() {
         view();
 
-        int flag = process();
+        String choiceMenu = scanner.nextLine();
 
-        redirect(flag);
+        int flag = process(choiceMenu);
+
+        MenuInterface menuInterface = redirect(flag);
+
+        menuInterface.menu();
     }
 
     private void view() {
         System.out.println("************저장소 목록************");
 
-        for (int i = 0; i < containers.size(); i++){
-            Container post = containers.get(i);
+        for (int i = 0; i < containerMenus.size(); i++){
+            ContainerMenu post = containerMenus.get(i);
             System.out.printf("%d. %s\n", i, post.getTitle());
         }
 
@@ -35,8 +39,8 @@ public class MenuImpl implements MenuInterface {
         System.out.println("-------------------------");
     }
 
-    private int process() {
-        String choiceMenu = scanner.nextLine();
+    private int process(String choiceMenu) {
+
 
         int flag = -1;
 
@@ -77,7 +81,7 @@ public class MenuImpl implements MenuInterface {
                 try{
                     flag = Integer.parseInt(choiceMenu);
 
-                    if (flag < 0 || flag >= containers.size()) {        //
+                    if (flag < 0 || flag >= containerMenus.size()) {        //
                         System.out.println("인덱스의 범위를 넘어갑니다.");
                         flag = -1;
                     }
@@ -92,17 +96,18 @@ public class MenuImpl implements MenuInterface {
         return flag;
     }
 
-    private void redirect(int flag) {
+    private MenuInterface redirect(int flag) {
         if (flag == -1){
-            menu();
+            return this;
         } else if (flag == -2){
             quit();
+            return null;
         } else if (flag >= 0){
-            MenuInterface container = containers.get(flag);
-            container.menu();
+            MenuInterface container = containerMenus.get(flag);
+            return container;
         } else{
             System.out.println("잘못된 메뉴입니다");
-            menu();
+            return this;
         }
     }
 
@@ -113,19 +118,19 @@ public class MenuImpl implements MenuInterface {
 
 
     public void create(TitleContent titleContent){
-        Container container = new Container(this);
+        ContainerMenu containerMenu = new ContainerMenu(this);
         String title = titleContent.getContent();
 
-        container.setTitle(title);
+        containerMenu.setTitle(title);
 
-        containers.add(container);
+        containerMenus.add(containerMenu);
 
         System.out.println("컨테이너가 생성되었습니다.");
     }
 
     public void delete(int index) {
-        if (index >= 0 && index < containers.size()){
-            containers.remove(index);
+        if (index >= 0 && index < containerMenus.size()){
+            containerMenus.remove(index);
             System.out.println("컨테이너가 삭제되었습니다");
         } else {
             System.out.println("인덱스의 최대 범위를 넘어갑니다.");

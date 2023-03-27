@@ -1,4 +1,4 @@
-package notebook.model;
+package notebook.oldMenus.model;
 
 public class TitleContent {
     private String title;

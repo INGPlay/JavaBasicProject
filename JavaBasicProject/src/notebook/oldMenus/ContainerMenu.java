@@ -1,15 +1,15 @@
-package notebook;
+package notebook.oldMenus;
 
-import notebook.interfaces.MenuInterface;
-import notebook.model.TitleContent;
+import notebook.oldMenus.interfaces.MenuInterface;
+import notebook.oldMenus.model.TitleContent;
 import notebook.statics.Singleton;
-import notebook.util.Submit;
+import notebook.oldMenus.util.Submit;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Container implements MenuInterface {
+public class ContainerMenu implements MenuInterface {
 
     private Scanner scanner = Singleton.getScanner();
 
@@ -23,11 +23,11 @@ public class Container implements MenuInterface {
         this.title = title;
     }
 
-    private List<Post> posts = new ArrayList<>();
+    private List<PostMenu> postMenus = new ArrayList<>();
 
     private MenuInterface before;
 
-    public Container(MenuInterface before) {
+    public ContainerMenu(MenuInterface before) {
         this.before = before;
     }
 
@@ -50,6 +50,8 @@ public class Container implements MenuInterface {
                 TitleContent titleContent = Submit.submitTitleContent(title, content);
                 create(titleContent);
 
+                System.out.println("노트가 생성되었습니다.");
+
                 menu();
                 break;
 
@@ -63,6 +65,7 @@ public class Container implements MenuInterface {
                     int index = Integer.parseInt(scan);
 
                     delete(index);
+                    System.out.println("노트가 삭제되었습니다");
 
                     menu();
                 }
@@ -75,12 +78,13 @@ public class Container implements MenuInterface {
 
                 System.out.println("제목을 적어주세요.");
 
-
                 String title_ = scanner.nextLine();
 
                 TitleContent titleOnly = Submit.submitTitleOnly(title_);
 
                 update(titleOnly);
+
+                System.out.println("저장소 제목이 수정되었습니다.");
 
                 menu();
                 break;
@@ -92,7 +96,7 @@ public class Container implements MenuInterface {
             default:
                 try{
                     int choiceIndex = Integer.parseInt(choiceMenu);
-                    MenuInterface post = posts.get(choiceIndex);
+                    MenuInterface post = postMenus.get(choiceIndex);
 
                     post.menu();
 
@@ -112,9 +116,9 @@ public class Container implements MenuInterface {
     private void view() {
         System.out.println("************노트 목록*************");
 
-        for (int i = 0; i < posts.size(); i++){
-            Post post = posts.get(i);
-            System.out.printf("%d. %s\n", i, post.getTitle());
+        for (int i = 0; i < postMenus.size(); i++){
+            PostMenu postMenu = postMenus.get(i);
+            System.out.printf("%d. %s\n", i, postMenu.getTitle());
         }
 
         System.out.println("-------------------------");
@@ -127,25 +131,19 @@ public class Container implements MenuInterface {
         String title = titleContent.getTitle();
         String content = titleContent.getContent();
 
-        Post post = new Post(this);
-        post.setTitle(title);
-        post.setContent(content);
+        PostMenu postMenu = new PostMenu(this);
+        postMenu.setTitle(title);
+        postMenu.setContent(content);
 
-        posts.add(post);
-
-        System.out.println("노트가 생성되었습니다.");
-
+        postMenus.add(postMenu);
     }
 
     public void update(TitleContent titleContent){
         this.title = titleContent.getTitle();
-
-        System.out.println("저장소 제목이 수정되었습니다.");
     }
 
     public void delete(int index){
-        posts.remove(index);
-        System.out.println("노트가 삭제되었습니다");
+        postMenus.remove(index);
     }
 
 }
