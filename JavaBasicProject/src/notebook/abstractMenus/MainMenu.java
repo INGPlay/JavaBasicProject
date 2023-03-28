@@ -1,11 +1,11 @@
 package notebook.abstractMenus;
 
 import notebook.abstractMenus.extend.AbstractMenuV1_Field;
-import notebook.abstractMenus.extend.AbstractMenuV3_DecideMenu;
+import notebook.abstractMenus.extend.AbstractMenuV3_Handle;
 
 import static notebook.abstractMenus.util.Check.isStringToInt;
 
-public class MainMenu extends AbstractMenuV3_DecideMenu {
+public class MainMenu extends AbstractMenuV3_Handle {
     @Override
     protected String downView() {
         return "!. 컨테이너 생성 | @. 컨테이너 삭제 | #. 즐겨찾기 | -. 종료";
@@ -70,7 +70,7 @@ public class MainMenu extends AbstractMenuV3_DecideMenu {
         AbstractMenuV1_Field newMenu = new ContainerMenu();
         newMenu.setTitle(title);
 
-        menus.add(newMenu);
+        addMenus(newMenu);
 
         return -1;
     }
@@ -83,21 +83,11 @@ public class MainMenu extends AbstractMenuV3_DecideMenu {
         System.out.println("---------------------------");
 
         System.out.println("삭제할 컨테이너의 인덱스를 적어주세요.");
-        String str = scanner.nextLine();
+        String userInput = scanner.nextLine();
 
-        if (isStringToInt(str)){
-            int index = Integer.parseInt(str);
+        boolean isDelete = deleteMenus(userInput);
 
-            if (isMenusIndex(index)){
-                menus.remove(index);
-                System.out.println("컨테이너가 삭제되었습니다");
-            } else {
-                System.out.println("인덱스의 최대 범위를 넘어갑니다.");
-            }
-
-        } else {
-            // 오류 발생시키기
-            System.out.println("숫자가 아닌 문자를 입력하셨습니다.");
+        if (!isDelete){
             deleteContainer();     // 조건에 만족할 때까지 반복
         }
 

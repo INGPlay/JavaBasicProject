@@ -1,18 +1,18 @@
 package notebook.abstractMenus;
 
 import notebook.abstractMenus.extend.AbstractMenuV1_Field;
-import notebook.abstractMenus.extend.AbstractMenuV3_DecideMenu;
+import notebook.abstractMenus.extend.AbstractMenuV3_Handle;
 
 import static notebook.abstractMenus.util.Check.isStringToInt;
 
-public class FavoritiesMenu extends AbstractMenuV3_DecideMenu {
+public class FavoritiesMenu extends AbstractMenuV3_Handle {
 
     /**
      * 다른 메뉴에서 추가할 수 있도록 menus를 열어준다
      * @param menu
      */
     public void addMenus(AbstractMenuV1_Field menu){
-        this.menus.add(menu);
+        this.getMenus().add(menu);
     }
 
     /**
@@ -36,7 +36,7 @@ public class FavoritiesMenu extends AbstractMenuV3_DecideMenu {
             // 숫자로 변환할 수 있는 경우
             int userIndex = Integer.parseInt(userInput);
 
-            if (userIndex >= 0 && userIndex < menus.size()) {
+            if (userIndex >= 0 && userIndex < getMenus().size()) {
                 address = userIndex;
             } else {
                 // 입력할 수 있는 숫자값을 넘어간 경우
@@ -70,21 +70,11 @@ public class FavoritiesMenu extends AbstractMenuV3_DecideMenu {
         System.out.println("---------------------------");
 
         System.out.println("삭제할 메모의 인덱스를 적어주세요.");
-        String str = scanner.nextLine();
+        String userInput = scanner.nextLine();
 
-        if (isStringToInt(str)){
-            int index = Integer.parseInt(str);
+        boolean isDelete = deleteMenus(userInput);
 
-            if (isMenusIndex(index)){
-                menus.remove(index);
-                System.out.println("메모가 삭제되었습니다");
-            } else {
-                System.out.println("인덱스의 최대 범위를 넘어갑니다.");
-            }
-
-        } else {
-            // 오류 발생시키기
-            System.out.println("숫자가 아닌 문자를 입력하셨습니다.");
+        if (!isDelete){
             deleteFavorites();     // 조건에 만족할 때까지 반복
         }
 

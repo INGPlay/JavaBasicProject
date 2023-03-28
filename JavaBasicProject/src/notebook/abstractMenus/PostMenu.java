@@ -1,9 +1,9 @@
 package notebook.abstractMenus;
 
-import notebook.abstractMenus.extend.AbstractMenuV3_DecideMenu;
+import notebook.abstractMenus.extend.AbstractMenuV3_Handle;
 import notebook.statics.Singleton;
 
-public class PostMenu extends AbstractMenuV3_DecideMenu {
+public class PostMenu extends AbstractMenuV3_Handle {
     /**
      * content를 추가하여 메모 내용을 받을 수 있는 변수 추가
      */

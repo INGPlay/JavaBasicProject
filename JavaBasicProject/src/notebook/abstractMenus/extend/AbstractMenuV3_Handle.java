@@ -2,17 +2,18 @@ package notebook.abstractMenus.extend;
 
 import notebook.statics.Singleton;
 
-public abstract class AbstractMenuV3_DecideMenu extends AbstractMenuV2_View{
+public abstract class AbstractMenuV3_Handle extends AbstractMenuV2_View{
 
     /**
      * 유저 입력에 따른 처리 및 메뉴 반환
+     * 유저입력 -> process() -> redirect() -> 메뉴 호출
      * process() -> 유저 입력에 따른 처리
      * redirect() -> 처리가 끝난 후 보여줄 메뉴 반환
      * @param userInput
-     * @return
+     * @return 호출할 메뉴
      */
     @Override
-    protected AbstractMenuV0_BasicMehod handle(String userInput) {
+    protected AbstractMenuV0_Base handle(String userInput) {
         int address = process(userInput);
 
         AbstractMenuV1_Field menu = redirect(address);
@@ -24,7 +25,7 @@ public abstract class AbstractMenuV3_DecideMenu extends AbstractMenuV2_View{
      * 사용자의 입력에 따른 address(정수값) 반환
      * 반환된 정수값에 redirect() 에서 처리되어 메뉴를 반환함
      * @param userInput
-     * @return
+     * @return redirect()에서 처리할 수 있는 정수값
      */
     protected abstract int process(String userInput);
 
@@ -37,16 +38,17 @@ public abstract class AbstractMenuV3_DecideMenu extends AbstractMenuV2_View{
      * -2 : 뒤로가기 ( getBefore() )
      * -3 : 인덱스 범위 오류 ( this )
      * -4 : 애플리케이션 종료 ( System.exit(0) )
+     * -11 : 즐겨찾기 ( getFavorities() )
      * 그 외 : 예상치 못한 오류
      *
      * @param address : process()가 반환한 정수 값
-     * @return
+     * @return Menu
      */
     protected AbstractMenuV1_Field redirect(int address){
         AbstractMenuV1_Field menu = null;
 
         if (isMenusIndex(address)){     // menus에 포함된 메뉴로 리다이렉트
-            menu = menus.get(address);
+            menu = getMenus().get(address);
             menu.setBefore(this);   // 뒤로갈 메뉴 정보 넣기
 
         } else if (address == -1) {     // 현재 메뉴
@@ -61,7 +63,7 @@ public abstract class AbstractMenuV3_DecideMenu extends AbstractMenuV2_View{
 
         } else if (address == -4) {     // 종료
             quit();
-        } else if (address == -11){
+        } else if (address == -11){     // 즐겨찾기
             menu = Singleton.getFavorities();
             menu.setBefore(this);
 
