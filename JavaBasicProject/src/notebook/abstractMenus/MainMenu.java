@@ -52,7 +52,6 @@ public class MainMenu extends AbstractMenuV3_Handle {
                     break;
 
                 default:
-                    System.out.println("MainMenu.process");
                     address = -100;
                     break;
             }
@@ -79,7 +78,7 @@ public class MainMenu extends AbstractMenuV3_Handle {
         System.out.println();
 
         System.out.println("---------------------------");
-        System.out.println(topView());
+        System.out.print(topView());
         System.out.println("---------------------------");
 
         System.out.println("삭제할 컨테이너의 인덱스를 적어주세요.");

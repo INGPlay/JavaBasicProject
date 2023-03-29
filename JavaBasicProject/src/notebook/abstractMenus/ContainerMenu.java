@@ -85,7 +85,7 @@ public class ContainerMenu extends AbstractMenuV3_Handle {
         System.out.println();
 
         System.out.println("---------------------------");
-        System.out.println(topView());
+        System.out.print(topView());
         System.out.println("---------------------------");
 
         System.out.println("삭제할 메모의 인덱스를 적어주세요.");

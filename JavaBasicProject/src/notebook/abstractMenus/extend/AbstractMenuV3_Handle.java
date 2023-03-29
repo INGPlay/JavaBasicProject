@@ -1,5 +1,6 @@
 package notebook.abstractMenus.extend;
 
+import notebook.abstractMenus.exception.FaultValueException;
 import notebook.statics.Singleton;
 
 public abstract class AbstractMenuV3_Handle extends AbstractMenuV2_View{
@@ -47,6 +48,19 @@ public abstract class AbstractMenuV3_Handle extends AbstractMenuV2_View{
     protected AbstractMenuV1_Field redirect(int address){
         AbstractMenuV1_Field menu = null;
 
+        try{
+            menu = findMenu(address);
+        } catch (FaultValueException e){
+            System.out.println(e.getMessage());
+            menu = this;
+        }
+
+        return menu;
+    }
+
+    private AbstractMenuV1_Field findMenu(int address) throws FaultValueException {
+        AbstractMenuV1_Field menu = null;
+
         if (isMenusIndex(address)){     // menus에 포함된 메뉴로 리다이렉트
             menu = getMenus().get(address);
             menu.setBefore(this);   // 뒤로갈 메뉴 정보 넣기
@@ -58,8 +72,7 @@ public abstract class AbstractMenuV3_Handle extends AbstractMenuV2_View{
             menu = getBefore();
 
         } else if (address == -3) {      // 입력할 수 있는 숫자값을 넘어간 경우
-            System.out.println("잘못된 입력 값 입니다.");       // 오류 발생
-            menu = this;
+            throw new FaultValueException("Error : 메뉴에 없는 인덱스입니다. (-3)");
 
         } else if (address == -4) {     // 종료
             quit();
@@ -68,13 +81,11 @@ public abstract class AbstractMenuV3_Handle extends AbstractMenuV2_View{
             menu.setBefore(this);
 
         } else {        // 잘못 입력된 경우
-            System.out.println("예상치 못한 에러입니다.");
-            menu = this;
+            throw new FaultValueException("Error : 잘못된 입력값 입니다 (else)");
 
         }
-
         return menu;
-    };
+    }
 
     private void quit(){
         System.out.println("종료합니다");

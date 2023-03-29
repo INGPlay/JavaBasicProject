@@ -11,7 +11,7 @@ public abstract class AbstractMenuV2_View extends AbstractMenuV1_Field {
     protected void view() {
         System.out.printf("************ %s ************\n", this.getTitle());
 
-        System.out.println(topView());
+        System.out.print(topView());
 
         System.out.println("------------------------------");
 
