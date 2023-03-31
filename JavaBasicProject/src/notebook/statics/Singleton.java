@@ -1,13 +1,13 @@
 package notebook.statics;
 
-import notebook.abstractMenus.FavoritiesMenu;
+import notebook.menus.FavoritiesMenu;
 
 import java.util.Scanner;
 
 public class Singleton {
     private static Scanner scanner;
 
-    private static FavoritiesMenu favorities;
+    private static FavoritiesMenu favoritiesMenu;
 
     private Singleton() {
     }
@@ -19,10 +19,10 @@ public class Singleton {
         return scanner;
     }
 
-    public static FavoritiesMenu getFavorities() {
-        if(favorities == null) {
-            favorities = new FavoritiesMenu();
+    public static FavoritiesMenu getFavoritiesMenu() {
+        if(favoritiesMenu == null) {
+            favoritiesMenu = new FavoritiesMenu();
         }
-        return favorities;
+        return favoritiesMenu;
     }
 }

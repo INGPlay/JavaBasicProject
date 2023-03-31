@@ -1,5 +1,5 @@
-import notebook.abstractMenus.MainMenu;
-import notebook.abstractMenus.extend.AbstractMenuV3_Handle;
+import notebook.menus.MainMenu;
+import notebook.menus.extend.AbstractMenuV3_Handle;
 public class Main {
     public static void main(String[] args) {
 
