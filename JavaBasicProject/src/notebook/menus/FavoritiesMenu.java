@@ -12,7 +12,7 @@ public class FavoritiesMenu extends AbstractMenuV4_Process {
      * 다른 메뉴에서 추가할 수 있도록 menus를 열어준다
      * @param menu
      */
-    public void addMenus(AbstractMenuV1_Field menu){
+    public void addFavorities(AbstractMenuV1_Field menu){
         super.addMenus(menu);
     }
 

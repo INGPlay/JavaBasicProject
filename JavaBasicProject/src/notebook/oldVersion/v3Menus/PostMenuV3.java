@@ -40,7 +40,7 @@ public class PostMenuV3 extends AbstractMenuV3_Handle {
                 break;
 
             case "#" :
-                Singleton.getFavoritiesMenu().addMenus(this);
+                Singleton.getFavoritiesMenu().addFavorities(this);
                 address = -1;
                 break;
 

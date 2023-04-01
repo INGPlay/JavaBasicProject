@@ -52,7 +52,7 @@ public class PostMenu extends AbstractMenuV4_Process {
 
     private void addFavorities() {
         System.out.println("즐겨찾기에 추가되었습니다.");
-        Singleton.getFavoritiesMenu().addMenus(this);
+        Singleton.getFavoritiesMenu().addFavorities(this);
     }
 
     private void updatePost(){
