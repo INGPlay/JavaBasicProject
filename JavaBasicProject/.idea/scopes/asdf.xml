@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="asdf" pattern="gitignore||src:notebook.menus.*||src:notebook.statics.*||src:notebook.menus.interfaces.*||src:notebook.menus.exception.*||src:notebook.menus.submenu.*||src:notebook.menus.extend.*||src:notebook.menus.util.*" />
+</component>

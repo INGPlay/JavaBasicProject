@@ -23,7 +23,7 @@ public abstract class AbstractMenuV2_View extends AbstractMenuV1_Field {
     /**
      * 위쪽 뷰
      * 기본적으로 menus의 title을 출력하여 보여주도록 설정
-     * @return
+     * @return 위쪽 뷰에 출력할 String
      */
     protected String topView(){
         String result = "";
@@ -41,7 +41,7 @@ public abstract class AbstractMenuV2_View extends AbstractMenuV1_Field {
      * 아래쪽 뷰
      * 기본적으로 가상 메소드
      * 직접 정의해야 함
-     * @return
+     * @return 아래쪽 뷰에 출력할 String
      */
     protected abstract String downView();
 }

@@ -12,6 +12,9 @@ public class Singleton {
     private Singleton() {
     }
 
+    /**
+     * @return Scanner 객체
+     */
     public static Scanner getScanner() {
         if(scanner == null) {
             scanner = new Scanner(System.in);
@@ -19,6 +22,9 @@ public class Singleton {
         return scanner;
     }
 
+    /**
+     * @return FavoritiesMenu(즐겨찾기 메뉴) 객체
+     */
     public static FavoritiesMenu getFavoritiesMenu() {
         if(favoritiesMenu == null) {
             favoritiesMenu = new FavoritiesMenu();

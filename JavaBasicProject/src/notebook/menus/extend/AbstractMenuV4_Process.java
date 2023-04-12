@@ -26,14 +26,14 @@ public abstract class AbstractMenuV4_Process extends AbstractMenuV3_Handle{
     /**
      * 정수인 유저 입력을 받는 경우
      * @param userInputInt
-     * @return
+     * @return 정수인 유저 입력을 받는 경우 출력할 flag
      */
     protected abstract int processInt(int userInputInt);
 
     /**
      * 정수를 제외한 유저 입력을 받는 경우
      * @param userInput
-     * @return
+     * @return 정수를 제외한 유저 입력을 받는 경우 출력할 flag
      */
     protected abstract int processString(String userInput);
 }

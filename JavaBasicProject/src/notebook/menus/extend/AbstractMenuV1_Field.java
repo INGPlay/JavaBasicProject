@@ -68,7 +68,7 @@ public abstract class AbstractMenuV1_Field extends AbstractMenuV0_Base {
     /**
      * 입력된 index가 menus에 가용한 정수인지 판별
      * @param index
-     * @return
+     * @return 가용한 정수이면 true, 아니면 false
      */
     protected boolean isMenusIndex(int index){
         if (index >= 0 && index < menus.size()){
